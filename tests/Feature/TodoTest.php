@@ -4,9 +4,8 @@ namespace Tests\Feature;
 
 use App\Models\Todo;
 use App\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+
 
 class TodoTest extends TestCase
 {
@@ -14,8 +13,8 @@ class TodoTest extends TestCase
 
     public function test_create_todo()
     {
-        $test = \Str::random();
-        $description = \Str::random();
+        $test = fake()->title();
+        $description = fake()->text();
 
         $response = $this->post('/todos', [
             'title' => $test,
@@ -44,8 +43,8 @@ class TodoTest extends TestCase
     public function test_update_todo()
     {
         $todo = Todo::factory()->create();
-        $test = \Str::random();
-        $description = \Str::random();
+        $test = fake()->title();
+        $description = fake()->text();
 
         $response = $this->put('/todos/' . $todo->id, [
             'title' => $test,
