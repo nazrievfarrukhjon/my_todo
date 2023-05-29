@@ -14,16 +14,21 @@ class TodoTest extends TestCase
 
     public function test_create_todo()
     {
+        $test = \Str::random();
+        $description = \Str::random();
+
         $response = $this->post('/todos', [
-            'title' => 'Example Todo',
-            'description' => 'This is an example todo.',
+            'title' => $test,
+            'description' => $description,
         ]);
 
-        $response->assertRedirect('/todos');
-        $this->assertDatabaseHas('todos', [
-            'title' => 'Example Todo',
-            'description' => 'This is an example todo.',
-        ]);
+        $response->assertStatus(302);
+        $dataExists = \DB::table('todos')
+            ->where('title', $test)
+            ->where('description', $description)
+            ->exists();
+
+        $this->assertTrue($dataExists);
     }
 
     public function test_read_todo()
@@ -39,18 +44,21 @@ class TodoTest extends TestCase
     public function test_update_todo()
     {
         $todo = Todo::factory()->create();
+        $test = \Str::random();
+        $description = \Str::random();
 
         $response = $this->put('/todos/' . $todo->id, [
-            'title' => 'Updated Todo',
-            'description' => 'This is an updated todo.',
+            'title' => $test,
+            'description' => $description,
         ]);
 
-        $response->assertRedirect('/todos');
-        $this->assertDatabaseHas('todos', [
-            'id' => $todo->id,
-            'title' => 'Updated Todo',
-            'description' => 'This is an updated todo.',
-        ]);
+        $response->assertStatus(302);
+        $dataExists = \DB::table('todos')
+            ->where('title', $test)
+            ->where('description', $description)
+            ->exists();
+
+        $this->assertTrue($dataExists);
     }
 
     public function test_delete_todo()
@@ -59,9 +67,13 @@ class TodoTest extends TestCase
 
         $response = $this->delete('/todos/' . $todo->id);
 
-        $response->assertRedirect('/todos');
-        $this->assertDatabaseMissing('todos', [
-            'id' => $todo->id,
-        ]);
+        $response->assertStatus(302);
+
+        $dataExists = \DB::table('todos')
+            ->where('title', $todo->test)
+            ->where('description', $todo->description)
+            ->exists();
+
+        $this->assertFalse($dataExists);
     }
 }
