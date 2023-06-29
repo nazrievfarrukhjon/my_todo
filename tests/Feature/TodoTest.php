@@ -5,18 +5,22 @@ namespace Tests\Feature;
 use App\Models\Todo;
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Str;
 use Tests\TestCase;
 
 
 class TodoTest extends TestCase
 {
-    use RefreshDatabase;
+    //use RefreshDatabase;
 
     // example for blackbox testing
-    // we just send data and ensure the and result from db
+    // we just send data and ensure the end result from db
     public function test_create_todo()
     {
-        $title = fake()->title();
+        //suppose we check if title lowered
+        //first we make it camel case
+        $title = Str::upper(fake()->name());
+        \Log::info($title);
         $description = fake()->text();
 
         $response = $this->post('/todos', [
@@ -25,8 +29,10 @@ class TodoTest extends TestCase
         ]);
 
         $response->assertStatus(302);
+        //here we just check end result
+        // not each method ot they return types ot arguments and so on
         $dataExists = \DB::table('todos')
-            ->where('title', $title)
+            ->where('title',    Str::lower(preg_replace("/[^a-zA-Z]/", "", $title)))
             ->where('description', $description)
             ->exists();
 

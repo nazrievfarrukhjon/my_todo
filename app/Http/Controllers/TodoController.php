@@ -29,18 +29,25 @@ class TodoController extends Controller
             'description' => 'required',
         ]);
 
-        $todo = Todo::create($request->all());
+        $params = $request->all();
+        //we lower title
+        $params['title'] = \Illuminate\Support\Str::lower($params['title']);
+
+        //we clear title
+        $params['title'] = preg_replace("/[^a-zA-Z]/", "", $params['title']);
+
+        $todo = Todo::create($params);
 
         // some random action to show black box testing benefit
         if ($checker->isFamily($todo)) {
             $history = new History();
-            $history->body = json_encode($request->all());
+            $history->body = json_encode($params);
             $history->action = 'created';
             $history->save();
         }
 
         if ($checker->isFriend($todo)) {
-            Notification::sendToTelegram($request->all());
+            Notification::sendToTelegram($params);
         }
 
         if ($checker->isImportant($todo)) {

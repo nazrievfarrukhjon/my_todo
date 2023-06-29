@@ -2,7 +2,7 @@
 
 namespace App\Modules;
 
-use Database\Factories\TodoFactory;
+use Database\Factories\HistoryFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
