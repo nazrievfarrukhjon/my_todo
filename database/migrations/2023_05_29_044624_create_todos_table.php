@@ -11,7 +11,6 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('todos', function (Blueprint $table) {
             Schema::create('todos', function (Blueprint $table) {
                 $table->id();
                 $table->string('title');
@@ -19,7 +18,6 @@ return new class extends Migration
                 $table->boolean('completed')->default(false);
                 $table->timestamps();
             });
-        });
     }
 
     /**
