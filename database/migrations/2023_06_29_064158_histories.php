@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('histories', function (Blueprint $table) {
             $table->id();
-            $table->string('body');
+            $table->json('body');
             $table->string('action');
             $table->timestamps();
         });

@@ -11,6 +11,8 @@ class TodoTest extends TestCase
 {
     //use RefreshDatabase;
 
+    // example for blackbox testing
+    // we just send data and ensure the and result from db
     public function test_create_todo()
     {
         $test = fake()->title();
@@ -74,5 +76,63 @@ class TodoTest extends TestCase
             ->exists();
 
         $this->assertFalse($dataExists);
+    }
+
+    public function test_telegram_notification()
+    {
+        $test = 'ali';
+        $description = 'check if telegram notification works for friends';
+
+        $response = $this->post('/todos', [
+            'title' => $test,
+            'description' => $description,
+        ]);
+
+        $response->assertStatus(302);
+        $dataExists = \DB::table('todos')
+            ->where('title', $test)
+            ->where('description', $description)
+            ->exists();
+
+        $this->assertTrue($dataExists);
+    }
+
+    public function test_importance()
+    {
+        $test = 'doctor';
+        $description = 'check if importance works';
+
+        $response = $this->post('/todos', [
+            'title' => $test,
+            'description' => $description,
+        ]);
+
+        $response->assertStatus(302);
+        $dataExists = \DB::table('todos')
+            ->where('title', $test)
+            ->where('is_important', true)
+            ->exists();
+
+        $this->assertTrue($dataExists);
+    }
+
+    public function test_history()
+    {
+        $test = 'mother';
+        $description = 'my father is the best';
+
+        $response = $this->post('/todos', [
+            'title' => $test,
+            'description' => $description,
+        ]);
+
+        $response->assertStatus(302);
+
+        //
+        $dataExists = \DB::table('histories')
+            ->where('body', '%LIKE%',  $description)
+            ->exists();
+
+        $this->assertTrue($dataExists);
     }
 }
