@@ -4,28 +4,29 @@ namespace Tests\Feature;
 
 use App\Models\Todo;
 use App\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 
 class TodoTest extends TestCase
 {
-    //use RefreshDatabase;
+    use RefreshDatabase;
 
     // example for blackbox testing
     // we just send data and ensure the and result from db
     public function test_create_todo()
     {
-        $test = fake()->title();
+        $title = fake()->title();
         $description = fake()->text();
 
         $response = $this->post('/todos', [
-            'title' => $test,
+            'title' => $title,
             'description' => $description,
         ]);
 
         $response->assertStatus(302);
         $dataExists = \DB::table('todos')
-            ->where('title', $test)
+            ->where('title', $title)
             ->where('description', $description)
             ->exists();
 
@@ -45,17 +46,17 @@ class TodoTest extends TestCase
     public function test_update_todo()
     {
         $todo = Todo::factory()->create();
-        $test = fake()->title();
+        $title = fake()->title();
         $description = fake()->text();
 
         $response = $this->put('/todos/' . $todo->id, [
-            'title' => $test,
+            'title' => $title,
             'description' => $description,
         ]);
 
         $response->assertStatus(302);
         $dataExists = \DB::table('todos')
-            ->where('title', $test)
+            ->where('title', $title)
             ->where('description', $description)
             ->exists();
 
@@ -80,17 +81,17 @@ class TodoTest extends TestCase
 
     public function test_telegram_notification()
     {
-        $test = 'ali';
+        $title = 'ali';
         $description = 'check if telegram notification works for friends';
 
         $response = $this->post('/todos', [
-            'title' => $test,
+            'title' => $title,
             'description' => $description,
         ]);
 
         $response->assertStatus(302);
         $dataExists = \DB::table('todos')
-            ->where('title', $test)
+            ->where('title', $title)
             ->where('description', $description)
             ->exists();
 
@@ -99,17 +100,17 @@ class TodoTest extends TestCase
 
     public function test_importance()
     {
-        $test = 'doctor';
+        $title = 'doctor';
         $description = 'check if importance works';
 
         $response = $this->post('/todos', [
-            'title' => $test,
+            'title' => $title,
             'description' => $description,
         ]);
 
         $response->assertStatus(302);
         $dataExists = \DB::table('todos')
-            ->where('title', $test)
+            ->where('title', $title)
             ->where('is_important', true)
             ->exists();
 
@@ -118,11 +119,11 @@ class TodoTest extends TestCase
 
     public function test_history()
     {
-        $test = 'mother';
+        $title = 'mother';
         $description = 'my father is the best';
 
         $response = $this->post('/todos', [
-            'title' => $test,
+            'title' => $title,
             'description' => $description,
         ]);
 
@@ -130,7 +131,7 @@ class TodoTest extends TestCase
 
         //
         $dataExists = \DB::table('histories')
-            ->where('body', '%LIKE%',  $description)
+            ->whereRaw("json_extract(body, '$.title') LIKE '%" . $title . "%'")
             ->exists();
 
         $this->assertTrue($dataExists);
