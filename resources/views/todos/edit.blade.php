@@ -4,25 +4,19 @@
 
 @section('content')
     <div class="container">
-        <h2>Редактировать</h2>
         <div class="container">
-            <h2>Редактировать Todo</h2>
+            <h2 style="text-align: center">Редактировать Todo</h2>
 
             <form action="{{ route('todos.update', $todo->id) }}" method="POST">
                 @csrf
                 @method('PUT')
+                <label for="title" class="ot">Титуль:</label>
+                <input class="ot" type="text" id="title" name="title" style="width: 100%" value="{{ $todo->title }}">
+                <label for="description" class="ot">Описание</label>
+                <textarea rows="3" cols="" name="description" id="description" class="ot">{{ $todo->description }}</textarea>
+                <br>
 
-                <div class="form-group1 m-1">
-                    <label for="title">Титуль:</label>
-                    <input type="text" id="title" name="title" class="form-control1" value="{{ $todo->title }}">
-                </div>
-
-                <div class="form-group1 m-1">
-                    <label for="description">Описание</label>
-                    <textarea rows="3" cols="30" name="description" id="description" class="form-control1">{{ $todo->description }}</textarea>
-                </div>
-
-                <button type="submit" class="btn btn-primary">Обновить</button>
+                <button type="submit" class="btn-success">Обновить</button>
             </form>
         </div>
     <script>

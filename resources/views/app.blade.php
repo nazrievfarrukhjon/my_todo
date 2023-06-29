@@ -15,17 +15,17 @@
         }
 
         .container {
-            max-width: 600px;
+            max-width: 800px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 10px;
             background-color: #fff;
             border: 1px solid #ddd;
-            border-radius: 5px;
+            border-radius: 3px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
         .form-group {
-            margin-bottom: 10px;
+            margin-bottom: 5px;
         }
 
         .btn-success {
@@ -41,7 +41,7 @@
         }
 
         table {
-            margin-top: 10px;
+            margin-top: 5px;
             border-collapse: separate;
             border-spacing: 0;
             width: 100%;
@@ -72,16 +72,19 @@
         .form-group1 {
             display: flex;
             align-items: center;
-            width: 500px; /* Adjust the width as needed */
+            width: 700px; /* Adjust the width as needed */
         }
 
         .form-group1 label {
-            width: 200px; /* Adjust the label width as needed */
             margin-right: 5px; /* Add space between the label and input */
         }
 
         .form-group1 input {
-            flex-grow: 1;
+            flex-grow: 3;
+        }
+        .ot {
+            margin-bottom: 0.5rem;
+            width: 100%;
         }
 
 

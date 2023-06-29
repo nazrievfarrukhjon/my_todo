@@ -6,9 +6,9 @@
 
     <div class="container">
         <div class="image-container">
-            <img src="{{ url('images/exam.jpeg') }}" alt="EXAMS">
+{{--            <img src="{{ url('images/exam.jpeg') }}" alt="EXAMS">--}}
         </div>
-        <h2>Список задач</h2>
+        <h2>Добавить заметку</h2>
 
         <div class="col-md-6">
             <form action="{{ route('todos.store') }}" method="POST">
@@ -26,7 +26,7 @@
         <hr>
 
     <div class="container">
-        <h2>Список Задач</h2>
+        <h2>Список заметок</h2>
 
         <table class="table">
             <thead>
