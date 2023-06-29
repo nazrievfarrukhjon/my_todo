@@ -61,6 +61,9 @@
         tr:last-child td {
             border-bottom: none;
         }
+        .m-1 {
+            margin: 0.4rem;
+        }
     </style>
 </head>
 <body>

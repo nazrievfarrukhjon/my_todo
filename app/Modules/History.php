@@ -1,23 +1,22 @@
 <?php
 
-namespace App\Models;
+namespace App\Modules;
 
 use Database\Factories\TodoFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Todo extends Model
+class History extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        "title",
-        "description",
-        "is_important"
+        "body",
+        "action",
     ];
 
-    protected static function newFactory(): TodoFactory
+    protected static function newFactory(): HistoryFactory
     {
-        return TodoFactory::new();
+        return HistoryFactory::new();
     }
 }

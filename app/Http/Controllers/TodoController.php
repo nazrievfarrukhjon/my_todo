@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Todo;
+use App\Modules\Checker;
+use App\Modules\History;
+use App\Modules\Marker;
+use App\Modules\Notification;
 use Illuminate\Http\Request;
 
 class TodoController extends Controller
@@ -18,14 +22,31 @@ class TodoController extends Controller
         return view('todos.create');
     }
 
-    public function store(Request $request): \Illuminate\Http\RedirectResponse
+    public function store(Request $request, Checker $checker): \Illuminate\Http\RedirectResponse
     {
         $request->validate([
             'title' => 'required',
             'description' => 'required',
         ]);
 
-        Todo::create($request->all());
+        $todo = Todo::create($request->all());
+
+        // some random action to show black box testing benefit
+        if ($checker->isFamily($todo)) {
+            $history = new History();
+            $history->body = json_encode($request->all());
+            $history->action = 'created';
+            $history->save();
+        }
+
+        if ($checker->isFriend($todo)) {
+            Notification::sendToTelegram($request->all());
+        }
+
+        if ($checker->isImportant($todo)) {
+            $marker = new Marker($todo);
+            $marker->markImportance();
+        }
 
         return redirect()->route('todos.index')
             ->with('success', 'Todo created successfully.');

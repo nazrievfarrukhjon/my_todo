@@ -10,11 +10,11 @@
             <form action="{{ route('todos.store') }}" method="POST">
                 @csrf
                 <div class="form-group">
-                    <input type="text" class="form-control" name="title" placeholder="Enter a new title">
+                    <input type="text" class="form-control m-1" name="title" placeholder="Enter a new title">
                     <br>
-                    <input type="text" class="form-control" name="description" placeholder="Enter a new description">
+                    <input type="text" class="form-control m-1" name="description" placeholder="Enter a new description">
                 </div>
-                <button type="submit" class="btn btn-success">Add Todo</button>
+                <button type="submit" class="btn btn-success m-1">Add Todo</button>
             </form>
         </div>
     </div>

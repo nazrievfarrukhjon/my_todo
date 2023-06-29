@@ -11,14 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-            Schema::create('todos', function (Blueprint $table) {
-                $table->id();
-                $table->string('title');
-                $table->text('description')->nullable();
-                $table->boolean('completed')->default(false);
-                $table->boolean('is_important')->default(false);
-                $table->timestamps();
-            });
+        Schema::create('histories', function (Blueprint $table) {
+            $table->id();
+            $table->string('body');
+            $table->string('action');
+            $table->timestamps();
+        });
     }
 
     /**
