@@ -64,9 +64,31 @@
         .m-1 {
             margin: 0.4rem;
         }
+        .image-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .form-group1 {
+            display: flex;
+            align-items: center;
+            width: 500px; /* Adjust the width as needed */
+        }
+
+        .form-group1 label {
+            width: 200px; /* Adjust the label width as needed */
+            margin-right: 5px; /* Add space between the label and input */
+        }
+
+        .form-group1 input {
+            flex-grow: 1;
+        }
+
+
     </style>
 </head>
 <body>
+<a href="{{ route('todos.index') }}" class="btn btn-primary">главное</a>
 @yield('content')
 </body>
 </html>

@@ -3,18 +3,22 @@
 @extends('app')
 
 @section('content')
+
     <div class="container">
-        <h2>TODO List</h2>
+        <div class="image-container">
+            <img src="{{ url('images/exam.jpeg') }}" alt="EXAMS">
+        </div>
+        <h2>Список задач</h2>
 
         <div class="col-md-6">
             <form action="{{ route('todos.store') }}" method="POST">
                 @csrf
                 <div class="form-group">
-                    <input type="text" class="form-control m-1" name="title" placeholder="Enter a new title">
+                    <input style="width: 200px" type="text" class="form-control m-1" name="title" placeholder="введите новый титиуль">
                     <br>
-                    <input type="text" class="form-control m-1" name="description" placeholder="Enter a new description">
+                    <input style="width: 200px" type="text" class="form-control m-1" name="description" placeholder="введите новое описание">
                 </div>
-                <button type="submit" class="btn btn-success m-1">Add Todo</button>
+                <button type="submit" class="btn btn-success m-1">Добавить</button>
             </form>
         </div>
     </div>
@@ -22,14 +26,14 @@
         <hr>
 
     <div class="container">
-        <h2>TODO List</h2>
+        <h2>Список Задач</h2>
 
         <table class="table">
             <thead>
             <tr>
-                <th>Title</th>
-                <th>Description</th>
-                <th>Actions</th>
+                <th>Титуль</th>
+                <th>Описание</th>
+                <th>Действие</th>
             </tr>
             </thead>
             <tbody>
@@ -42,13 +46,13 @@
                         <form action="{{ route('todos.edit', $todo->id) }}" method="GET" class="d-inline">
                             @csrf
                             @method('GET')
-                            <button type="submit" class="">EDIT</button>
+                            <button type="submit" class="">редактировать</button>
                         </form>                    <td>
                         <!-- Delete form -->
                         <form action="{{ route('todos.destroy', $todo->id) }}" method="POST" class="d-inline">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger">Delete</button>
+                            <button type="submit" class="btn btn-danger">удалить</button>
                         </form>
                     </td>
                     </td>
