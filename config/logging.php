@@ -73,6 +73,12 @@ return [
             'replace_placeholders' => true,
         ],
 
+        'zoo' => [
+            'driver' => 'daily',
+            'bubble' => false,
+            'path' => storage_path('logs/visa/logs.log')
+        ],
+
         'slack' => [
             'driver' => 'slack',
             'url' => env('LOG_SLACK_WEBHOOK_URL'),
