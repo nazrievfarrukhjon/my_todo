@@ -24,6 +24,8 @@ class TodoController extends Controller
 
     public function store(Request $request, Checker $checker): \Illuminate\Http\RedirectResponse
     {
+        \Log::channel('zoo')->info(['exception function store' => $request->all()]);
+
         $request->validate([
             'title' => 'required',
             'description' => 'required',

@@ -76,7 +76,7 @@ return [
         'zoo' => [
             'driver' => 'daily',
             'bubble' => false,
-            'path' => storage_path('logs/visa/logs.log')
+            'path' => storage_path('logs/zoo/logs.log')
         ],
 
         'slack' => [
