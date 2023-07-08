@@ -3,4 +3,5 @@
 - if there is any issue finding path to db set it manually for mac
 - example: .env DB_DATABASE=/Users/admin/Desktop/MY_FOLDERS/exams/my_todo/laravel.sqlite
 
-# 2) 
+# 2) sudo apt-get install php-sqlite
+
